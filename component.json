@@ -1,0 +1,21 @@
+{
+  "name": "nlcst-is-literal",
+  "version": "0.0.0",
+  "description": "Check whether an NLCST node is meant literally",
+  "license": "MIT",
+  "keywords": [
+    "nlcst",
+    "retext",
+    "util",
+    "utility",
+    "literal",
+    "word"
+  ],
+  "dependencies": {
+    "wooorm/nlcst-to-string": "^1.0.0"
+  },
+  "repository": "wooorm/nlcst-is-literal",
+  "scripts": [
+    "index.js"
+  ]
+}

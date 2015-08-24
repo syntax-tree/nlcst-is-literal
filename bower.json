@@ -1,0 +1,36 @@
+{
+  "name": "nlcst-is-literal",
+  "main": "nlcst-is-literal.js",
+  "description": "Check whether an NLCST node is meant literally",
+  "license": "MIT",
+  "keywords": [
+    "nlcst",
+    "retext",
+    "util",
+    "utility",
+    "literal",
+    "word"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/nlcst-is-literal.git"
+  },
+  "authors": [
+    "Titus Wormer <tituswormer@gmail.com>"
+  ],
+  "ignore": [
+    ".*",
+    "*.log",
+    "*.md",
+    "build/",
+    "components/",
+    "coverage/",
+    "node_modules/",
+    "build.js",
+    "example.js",
+    "index.js",
+    "test.js",
+    "component.json",
+    "package.json"
+  ]
+}

@@ -1,0 +1,7 @@
+build/
+components/
+coverage/
+build.js
+example.js
+nlcst-is-literal.js
+nlcst-is-literal.min.js
