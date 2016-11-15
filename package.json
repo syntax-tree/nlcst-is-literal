@@ -20,19 +20,20 @@
     "index.js"
   ],
   "devDependencies": {
+    "bail": "^1.0.1",
     "browserify": "^11.0.0",
     "esmangle": "^1.0.0",
     "istanbul": "^0.3.0",
-    "mocha": "^2.0.0",
     "remark-cli": "^2.1.0",
     "remark-preset-wooorm": "^1.0.0",
     "retext": "^1.0.0-rc.3",
+    "tape": "^4.6.2",
     "unist-util-visit": "^1.0.0",
     "xo": "^0.17.1"
   },
   "scripts": {
-    "test-api": "mocha --check-leaks test.js",
-    "test-coverage": "istanbul cover _mocha -- test.js",
+    "test-api": "node test",
+    "test-coverage": "istanbul cover tape test.js",
     "test-travis": "npm run test-coverage",
     "test": "npm run test-api",
     "lint": "xo",
