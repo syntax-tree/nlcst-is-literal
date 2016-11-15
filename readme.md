@@ -1,6 +1,6 @@
 # nlcst-is-literal [![Build Status](https://img.shields.io/travis/wooorm/nlcst-is-literal.svg)](https://travis-ci.org/wooorm/nlcst-is-literal) [![Coverage Status](https://img.shields.io/codecov/c/github/wooorm/nlcst-is-literal.svg)](https://codecov.io/github/wooorm/nlcst-is-literal)
 
-Check whether an NLCST node is meant literally. Useful if a tool wants to
+Check whether an NLCST node is meant literally.  Useful if a tool wants to
 exclude these values possibly void of meaning.
 
 As an example, a spell-checker could exclude these literal words, thus not
@@ -13,11 +13,6 @@ warning about “monsieur”.
 ```bash
 npm install nlcst-is-literal
 ```
-
-**nlcst-is-literal** is also available for [bower](http://bower.io/#install-packages),
-[component](https://github.com/componentjs/component), and
-[duo](http://duojs.org/#getting-started), and as an AMD, CommonJS, and globals
-module, [uncompressed](nlcst-is-literal.js) and [compressed](nlcst-is-literal.min.js).
 
 ## Usage
 
@@ -69,14 +64,14 @@ For example, in:
 
 ...`foo` is literal.
 
-**Parameters**
+###### Parameters
 
 *   `node` ([`NLCSTParentNode`](https://github.com/wooorm/nlcst#parent))
     — Parent to search.
 
 *   `nodes` (`Array.<NLCSTNode>`) — Position of node to check.
 
-**Returns**
+###### Returns
 
 `boolean` — Whether the node is literal.
 
