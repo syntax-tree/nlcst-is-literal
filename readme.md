@@ -28,19 +28,19 @@ var toString = require('nlcst-to-string');
 var isLiteral = require('.');
 
 retext().use(function () {
-    return function (cst) {
-        visit(cst, 'WordNode', function (node, index, parent) {
-            if (isLiteral(parent, index)) {
-                console.log(toString(node));
-            }
-        });
-    }
+  return function (cst) {
+    visit(cst, 'WordNode', function (node, index, parent) {
+      if (isLiteral(parent, index)) {
+        console.log(toString(node));
+      }
+    });
+  }
 }).process([
-    'The word “foo” is meant as a literal.',
-    'The word «bar» is meant as a literal.',
-    'The word (baz) is meant as a literal.',
-    'The word, qux, is meant as a literal.',
-    'The word — quux — is meant as a literal.'
+  'The word “foo” is meant as a literal.',
+  'The word «bar» is meant as a literal.',
+  'The word (baz) is meant as a literal.',
+  'The word, qux, is meant as a literal.',
+  'The word — quux — is meant as a literal.'
 ].join('\n\n'));
 ```
 
