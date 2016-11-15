@@ -15,8 +15,8 @@ deploy:
     api_key:
       secure: hBcRW3VRCqRUQlmvqpc0LEsOfS8g60kvGBjOOfmJv/nSk/OHtkqZ6pLyXAiK2yaxlJNUNlIoUgkNYv0vqyEzgLI26pDJf3oEHKsJVdyUOn1/bclVN3UQQXcNZGkUGiMafdZdtj/9wClfKKzizY2Hezip5vdO8bA0zBvzd4V8V6IYwn0gZcf6LtLd67DZuqD3Wq0pg07uDRlQlyxGj5Ib9RmSeOeT50bQe0QayL8mBf1/MkXtCu9S00PMQu9ShoH949IRrG2qvO99OCdBudkmAzgAfasQ163w31aFqHIcgzJZZz4NauQi1KJcVU3/kLkRnjI6qFHqZRp0rnAfgtsnOM9sojkKOQWOarY3/2kp7phh++KdhACSrEnyg8Qx1Am9IUsyd3gTse9a+/9U36gF1yi8iP+GrOfRGhNIloGNCJhZf2M1Jtn30oB2OcJ3O+iJg3R/rj2drBU0VQjLBmsL7J3zCmEIyrKAahKojv9YY5X8UKcJBVXeExOS1jfVzjg8Eg9tnzPQaWDwYeJVzYspGHrKAbZQ+VnTB+RvvEiWrij/O48he9x0rfjkQI6mzgnEt0EBAaAk09jNTSttt6YotVuPNXRlDR69XY7Px/PACBIMWb48bsm/sO14vx/11yvD7ZfKeLUS4LQKhsskk+nAXpmJ+nPvvxIgScFL0e4lfpo=
     file:
-      - "nlcst-emoticon-modifier.js"
-      - "nlcst-emoticon-modifier.min.js"
+      - "nlcst-is-literal.js"
+      - "nlcst-is-literal.min.js"
     on:
       tags: true
       node: '7.0'

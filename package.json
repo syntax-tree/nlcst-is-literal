@@ -11,14 +11,18 @@
     "literal",
     "word"
   ],
-  "dependencies": {
-    "nlcst-to-string": "^2.0.0"
-  },
-  "repository": "wooorm/nlcst-is-literal",
-  "author": "Titus Wormer <tituswormer@gmail.com>",
+  "repository": "https://github.com/wooorm/nlcst-is-literal",
+  "bugs": "https://github.com/wooorm/nlcst-is-literal/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+  ],
   "files": [
     "index.js"
   ],
+  "dependencies": {
+    "nlcst-to-string": "^2.0.0"
+  },
   "devDependencies": {
     "browserify": "^13.0.0",
     "esmangle": "^1.0.0",
@@ -31,16 +35,14 @@
     "xo": "^0.17.1"
   },
   "scripts": {
-    "test-api": "node test",
-    "test-coverage": "nyc --reporter lcov tape test.js",
-    "test-travis": "npm run test-coverage",
-    "test": "npm run test-api",
-    "lint": "xo",
-    "make": "npm run lint && npm run test-coverage",
-    "bundle": "browserify index.js --no-builtins -s nlcstIsLiteral > nlcst-is-literal.js",
-    "postbundle": "esmangle nlcst-is-literal.js > nlcst-is-literal.min.js",
     "build-md": "remark . --quiet --frail --output",
-    "build": "npm run bundle && npm run build-md"
+    "build-bundle": "browserify index.js --bare -s nlcstIsLiteral > nlcst-is-literal.js",
+    "build-mangle": "esmangle < nlcst-is-literal.js > nlcst-is-literal.min.js",
+    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "lint": "xo",
+    "test-api": "node test",
+    "test-coverage": "nyc --reporter lcov tape test/index.js",
+    "test": "npm run build && npm run lint && npm run test-coverage"
   },
   "nyc": {
     "check-coverage": true,
