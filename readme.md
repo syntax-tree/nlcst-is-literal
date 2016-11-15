@@ -1,6 +1,6 @@
-# nlcst-is-literal [![Build Status](https://img.shields.io/travis/wooorm/nlcst-is-literal.svg)](https://travis-ci.org/wooorm/nlcst-is-literal) [![Coverage Status](https://img.shields.io/codecov/c/github/wooorm/nlcst-is-literal.svg)](https://codecov.io/github/wooorm/nlcst-is-literal)
+# nlcst-is-literal [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
 
-Check whether an NLCST node is meant literally.  Useful if a tool wants to
+Check if an NLCST node is meant literally.  Useful if a tool wants to
 exclude these values possibly void of meaning.
 
 As an example, a spell-checker could exclude these literal words, thus not
@@ -8,7 +8,7 @@ warning about “monsieur”.
 
 ## Installation
 
-[npm](https://docs.npmjs.com/cli/install):
+[npm][]:
 
 ```bash
 npm install nlcst-is-literal
@@ -20,23 +20,27 @@ npm install nlcst-is-literal
 var retext = require('retext');
 var visit = require('unist-util-visit');
 var toString = require('nlcst-to-string');
-var isLiteral = require('.');
+var literal = require('nlcst-is-literal');
 
-retext().use(function () {
-  return function (cst) {
-    visit(cst, 'WordNode', function (node, index, parent) {
-      if (isLiteral(parent, index)) {
-        console.log(toString(node));
-      }
-    });
-  }
-}).process([
+retext().use(plugin).process([
   'The word “foo” is meant as a literal.',
   'The word «bar» is meant as a literal.',
   'The word (baz) is meant as a literal.',
   'The word, qux, is meant as a literal.',
   'The word — quux — is meant as a literal.'
 ].join('\n\n'));
+
+function plugin() {
+  return transformer;
+  function transformer(tree) {
+    visit(tree, 'WordNode', visitor);
+  }
+  function visitor(node, index, parent) {
+    if (literal(parent, index)) {
+      console.log(toString(node));
+    }
+  }
+}
 ```
 
 Yields:
@@ -51,7 +55,7 @@ quux
 
 ## API
 
-### isLiteral(parent, index)
+### `isLiteral(parent, index)`
 
 Check if the node in `parent` at `position` is enclosed
 by matching delimiters.
@@ -64,22 +68,22 @@ For example, in:
 
 ...`foo` is literal.
 
-###### Parameters
-
-*   `node` ([`NLCSTParentNode`](https://github.com/wooorm/nlcst#parent))
-    — Parent to search.
-
-*   `nodes` (`Array.<NLCSTNode>`) — Position of node to check.
-
-###### Returns
-
-`boolean` — Whether the node is literal.
-
-**Throws**
-
-*   `Error` — When no parent node is given;
-*   `Error` — When no index is given.
-
 ## License
 
-[MIT](LICENSE) © [Titus Wormer](http://wooorm.com)
+[MIT][license] © [Titus Wormer][author]
+
+<!-- Definitions -->
+
+[travis-badge]: https://img.shields.io/travis/wooorm/nlcst-is-literal.svg
+
+[travis]: https://travis-ci.org/wooorm/nlcst-is-literal
+
+[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/nlcst-is-literal.svg
+
+[codecov]: https://codecov.io/github/wooorm/nlcst-is-literal
+
+[npm]: https://docs.npmjs.com/cli/install
+
+[license]: LICENSE
+
+[author]: http://wooorm.com
