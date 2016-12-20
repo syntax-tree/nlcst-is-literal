@@ -1,6 +1,6 @@
 # nlcst-is-literal [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
 
-Check if an NLCST node is meant literally.  Useful if a tool wants to
+Check if an [NLCST][] node is meant literally.  Useful if a tool wants to
 exclude these values possibly void of meaning.
 
 As an example, a spell-checker could exclude these literal words, thus not
@@ -74,16 +74,18 @@ For example, in:
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/nlcst-is-literal.svg
+[travis-badge]: https://img.shields.io/travis/syntax-tree/nlcst-is-literal.svg
 
-[travis]: https://travis-ci.org/wooorm/nlcst-is-literal
+[travis]: https://travis-ci.org/syntax-tree/nlcst-is-literal
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/nlcst-is-literal.svg
+[codecov-badge]: https://img.shields.io/codecov/c/github/syntax-tree/nlcst-is-literal.svg
 
-[codecov]: https://codecov.io/github/wooorm/nlcst-is-literal
+[codecov]: https://codecov.io/github/syntax-tree/nlcst-is-literal
 
 [npm]: https://docs.npmjs.com/cli/install
 
 [license]: LICENSE
 
 [author]: http://wooorm.com
+
+[nlcst]: https://github.com/syntax-tree/nlcst
