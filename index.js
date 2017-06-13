@@ -5,11 +5,11 @@ var toString = require('nlcst-to-string');
 module.exports = isLiteral;
 
 var single = {
-  '-': true, // hyphen-minus
-  '–': true, // en-dash
-  '—': true, // em-dash
-  ':': true, // colon
-  ';': true // semicolon
+  '-': true, // Hyphen-minus
+  '–': true, // En dash
+  '—': true, // Em dash
+  ':': true, // Colon
+  ';': true // Semi-colon
 };
 
 /* Pair delimiters. From common sense, and wikipedia:
