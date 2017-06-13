@@ -16,34 +16,43 @@ npm install nlcst-is-literal
 
 ## Usage
 
+Say we have the following file, `example.txt`:
+
+```text
+The word “foo” is meant as a literal.
+
+The word «bar» is meant as a literal.
+
+The word (baz) is meant as a literal.
+
+The word, qux, is meant as a literal.
+
+The word — quux — is meant as a literal.
+```
+
+And our script, `example.js`, looks as follows:
+
 ```javascript
-var retext = require('retext');
+var vfile = require('to-vfile');
+var unified = require('unified');
+var english = require('retext-english');
 var visit = require('unist-util-visit');
 var toString = require('nlcst-to-string');
 var literal = require('nlcst-is-literal');
 
-retext().use(plugin).process([
-  'The word “foo” is meant as a literal.',
-  'The word «bar» is meant as a literal.',
-  'The word (baz) is meant as a literal.',
-  'The word, qux, is meant as a literal.',
-  'The word — quux — is meant as a literal.'
-].join('\n\n'));
+var file = vfile.readSync('example.txt');
+var tree = unified().use(english).parse(file);
 
-function plugin() {
-  return transformer;
-  function transformer(tree) {
-    visit(tree, 'WordNode', visitor);
-  }
-  function visitor(node, index, parent) {
-    if (literal(parent, index)) {
-      console.log(toString(node));
-    }
+visit(tree, 'WordNode', visitor);
+
+function visitor(node, index, parent) {
+  if (literal(parent, index)) {
+    console.log(toString(node));
   }
 }
 ```
 
-Yields:
+Now, running `node example` yields:
 
 ```text
 foo
