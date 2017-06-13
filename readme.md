@@ -60,13 +60,11 @@ quux
 Check if the node in `parent` at `position` is enclosed
 by matching delimiters.
 
-For example, in:
+For example, `foo` is literal in the following samples:
 
-*   `Foo - is meant as a literal.`;
-*   `Meant as a literal is - foo.`;
-*   `The word “foo” is meant as a literal.`;
-
-...`foo` is literal.
+*   `Foo - is meant as a literal.`
+*   `Meant as a literal is - foo.`
+*   `The word “foo” is meant as a literal.`
 
 ## License
 
