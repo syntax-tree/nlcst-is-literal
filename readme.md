@@ -75,6 +75,14 @@ For example, `foo` is literal in the following samples:
 *   `Meant as a literal is - foo.`
 *   `The word “foo” is meant as a literal.`
 
+## Contribute
+
+See [`contribute.md` in `syntax-tree/nlcst`][contribute] for ways to get
+started.
+
+This organisation has a [Code of Conduct][coc].  By interacting with this
+repository, organisation, or community you agree to abide by its terms.
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]
@@ -96,3 +104,7 @@ For example, `foo` is literal in the following samples:
 [author]: http://wooorm.com
 
 [nlcst]: https://github.com/syntax-tree/nlcst
+
+[contribute]: https://github.com/syntax-tree/nlcst/blob/master/contributing.md
+
+[coc]: https://github.com/syntax-tree/nlcst/blob/master/code-of-conduct.md
