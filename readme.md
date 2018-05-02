@@ -33,21 +33,23 @@ The word — quux — is meant as a literal.
 And our script, `example.js`, looks as follows:
 
 ```javascript
-var vfile = require('to-vfile');
-var unified = require('unified');
-var english = require('retext-english');
-var visit = require('unist-util-visit');
-var toString = require('nlcst-to-string');
-var literal = require('nlcst-is-literal');
+var vfile = require('to-vfile')
+var unified = require('unified')
+var english = require('retext-english')
+var visit = require('unist-util-visit')
+var toString = require('nlcst-to-string')
+var literal = require('nlcst-is-literal')
 
-var file = vfile.readSync('example.txt');
-var tree = unified().use(english).parse(file);
+var file = vfile.readSync('example.txt')
+var tree = unified()
+  .use(english)
+  .parse(file)
 
-visit(tree, 'WordNode', visitor);
+visit(tree, 'WordNode', visitor)
 
 function visitor(node, index, parent) {
   if (literal(parent, index)) {
-    console.log(toString(node));
+    console.log(toString(node))
   }
 }
 ```
