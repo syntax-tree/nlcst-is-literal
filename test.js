@@ -4,7 +4,7 @@ var assert = require('assert');
 var test = require('tape');
 var visit = require('unist-util-visit');
 var retext = require('retext');
-var isLiteral = require('./');
+var isLiteral = require('.');
 
 test('isLiteral()', function (t) {
   t.throws(
