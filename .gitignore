@@ -5,3 +5,4 @@ coverage/
 node_modules/
 nlcst-is-literal.js
 nlcst-is-literal.min.js
+yarn.lock
