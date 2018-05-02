@@ -4,21 +4,13 @@ node_js:
 - '9.0'
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
-  - provider: npm
-    skip_cleanup: true
-    email: tituswormer@gmail.com
-    api_key:
-      secure: h6Awccb8Mupog9mHltrdCBwjWLr3iOXd8OmOUA8WoQMgEBk8N8MlHzjRZgFYaLjj7xBZabTtLqnsAKY1FOpq7G5BuX4k3+WF71YnmU5Vu01f9KgKd/EQsbBPx/B2P7kDxVbrQFJYBP/QpLAroMMEEZih8X+WluVRXNOvoJvsPQl0UEmsKzQkEsTrEmlMEizu9FrEGq9W5gMPitlsEdMuNV711KDOXWHcSdfxJIlA6bP35RnTpwDQhx9N1oVXW93/i2YjvvPkmUSv0/lBtEMX2YmwjWoqyxZ0Yua+/e1HYnOOegO4xiFyiWNjgRsqDpAVuqEzIZTfQVk8VebCCfByEpcpknhfpnKcneHxUgqlHkS5jkVxuqYFcQufPQ+PBHjilRAD/UhfTw0HIamlADgv+fqrREFD5Dn2vy/HZ4ERJJbN4fbYUgKUO9FkB3DRjuv33puNW17ndIr7/uvu7589EFz1m6SPD4idDIuVKm7VkEFL4ErGlBRK28qcV1sh+VBu34B/VJzUEsFzL4We6EpLp3yqqZ4l/Bv06YPr0kCKzCfaz2+4TCgrzxUObQ/AZn3z7FNXDMJCQxpv57ZPA3blmVvJ8YvZ0NmOkzLjXZt6leNlqw64Xtv3NshIe9pqOczltvMkxgv5yYo3+GBMQg61RzJrTXcR8q0kNXLGBrStA/A=
-    on:
-      tags: true
-      node: '9.0'
-  - provider: releases
-    skip_cleanup: true
-    api_key:
-      secure: hBcRW3VRCqRUQlmvqpc0LEsOfS8g60kvGBjOOfmJv/nSk/OHtkqZ6pLyXAiK2yaxlJNUNlIoUgkNYv0vqyEzgLI26pDJf3oEHKsJVdyUOn1/bclVN3UQQXcNZGkUGiMafdZdtj/9wClfKKzizY2Hezip5vdO8bA0zBvzd4V8V6IYwn0gZcf6LtLd67DZuqD3Wq0pg07uDRlQlyxGj5Ib9RmSeOeT50bQe0QayL8mBf1/MkXtCu9S00PMQu9ShoH949IRrG2qvO99OCdBudkmAzgAfasQ163w31aFqHIcgzJZZz4NauQi1KJcVU3/kLkRnjI6qFHqZRp0rnAfgtsnOM9sojkKOQWOarY3/2kp7phh++KdhACSrEnyg8Qx1Am9IUsyd3gTse9a+/9U36gF1yi8iP+GrOfRGhNIloGNCJhZf2M1Jtn30oB2OcJ3O+iJg3R/rj2drBU0VQjLBmsL7J3zCmEIyrKAahKojv9YY5X8UKcJBVXeExOS1jfVzjg8Eg9tnzPQaWDwYeJVzYspGHrKAbZQ+VnTB+RvvEiWrij/O48he9x0rfjkQI6mzgnEt0EBAaAk09jNTSttt6YotVuPNXRlDR69XY7Px/PACBIMWb48bsm/sO14vx/11yvD7ZfKeLUS4LQKhsskk+nAXpmJ+nPvvxIgScFL0e4lfpo=
-    file:
-      - "nlcst-is-literal.js"
-      - "nlcst-is-literal.min.js"
-    on:
-      tags: true
-      node: '9.0'
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: hBcRW3VRCqRUQlmvqpc0LEsOfS8g60kvGBjOOfmJv/nSk/OHtkqZ6pLyXAiK2yaxlJNUNlIoUgkNYv0vqyEzgLI26pDJf3oEHKsJVdyUOn1/bclVN3UQQXcNZGkUGiMafdZdtj/9wClfKKzizY2Hezip5vdO8bA0zBvzd4V8V6IYwn0gZcf6LtLd67DZuqD3Wq0pg07uDRlQlyxGj5Ib9RmSeOeT50bQe0QayL8mBf1/MkXtCu9S00PMQu9ShoH949IRrG2qvO99OCdBudkmAzgAfasQ163w31aFqHIcgzJZZz4NauQi1KJcVU3/kLkRnjI6qFHqZRp0rnAfgtsnOM9sojkKOQWOarY3/2kp7phh++KdhACSrEnyg8Qx1Am9IUsyd3gTse9a+/9U36gF1yi8iP+GrOfRGhNIloGNCJhZf2M1Jtn30oB2OcJ3O+iJg3R/rj2drBU0VQjLBmsL7J3zCmEIyrKAahKojv9YY5X8UKcJBVXeExOS1jfVzjg8Eg9tnzPQaWDwYeJVzYspGHrKAbZQ+VnTB+RvvEiWrij/O48he9x0rfjkQI6mzgnEt0EBAaAk09jNTSttt6YotVuPNXRlDR69XY7Px/PACBIMWb48bsm/sO14vx/11yvD7ZfKeLUS4LQKhsskk+nAXpmJ+nPvvxIgScFL0e4lfpo=
+  file:
+    - "nlcst-is-literal.js"
+    - "nlcst-is-literal.min.js"
+  on:
+    tags: true
+    node: '9.0'
