@@ -109,12 +109,12 @@ test('isLiteral()', function(t) {
       process(fixture, function(node, index, parent) {
         var pos = 5
 
-        /* Adjacent hyphens are part of the word. */
+        // Adjacent hyphens are part of the word.
         if (n === 1) {
           pos = 4
         }
 
-        /* Tests for extra spaces. */
+        // Tests for extra spaces.
         if (n === 4 || n === 5 || n === 6) {
           pos = 6
         }
@@ -127,8 +127,8 @@ test('isLiteral()', function(t) {
   t.end()
 })
 
-/* Shortcut to process a fixture and invoke `visitor`
- * for each of its word nodes. */
+// Shortcut to process a fixture and invoke `visitor` for each of its word
+// nodes.
 function process(fixture, visitor) {
   visit(retext().parse(fixture), 'WordNode', visitor)
 }

@@ -12,8 +12,8 @@ var single = {
   ';': true // Semi-colon
 }
 
-/* Pair delimiters. From common sense, and wikipedia:
- * Mostly from https://en.wikipedia.org/wiki/Quotation_mark. */
+// Pair delimiters.
+// From common sense, and WikiPedia: <https://en.wikipedia.org/wiki/Quotation_mark>.
 var pairs = {
   ',': {
     ',': true
@@ -82,8 +82,8 @@ var pairs = {
   }
 }
 
-/* Check if the node in `parent` at `position` is enclosed
- * by matching delimiters. */
+// Check if the node in `parent` at `position` is enclosed by matching
+// delimiters.
 function isLiteral(parent, index) {
   if (!(parent && parent.children)) {
     throw new Error('Parent must be a node')
@@ -105,8 +105,8 @@ function isLiteral(parent, index) {
   return false
 }
 
-/* Check if the node in `parent` at `position` is enclosed
- * by matching delimiters. */
+// Check if the node in `parent` at `position` is enclosed by matching
+// delimiters.
 function isWrapped(parent, position, delimiters) {
   var prev = previousDelimiter(parent, position, delimiters)
   var next
@@ -118,8 +118,8 @@ function isWrapped(parent, position, delimiters) {
   return Boolean(next)
 }
 
-/* Find the previous delimiter before `position` in
- * `parent`. Returns the delimiter node when found. */
+// Find the previous delimiter before `position` in `parent`.
+// Returns the delimiter node when found.
 function previousDelimiter(parent, position, delimiters) {
   var siblings = parent.children
   var index = position
@@ -138,8 +138,8 @@ function previousDelimiter(parent, position, delimiters) {
   return null
 }
 
-/* Find the next delimiter after `position` in
- * `parent`. Returns the delimiter node when found. */
+// Find the next delimiter after `position` in `parent`.
+// Returns the delimiter node when found.
 function nextDelimiter(parent, position, delimiters) {
   var siblings = parent.children
   var index = position
@@ -159,7 +159,7 @@ function nextDelimiter(parent, position, delimiters) {
   return null
 }
 
-/* Check if `node` is in `delimiters`. */
+// Check if `node` is in `delimiters`.
 function delimiterCheck(node, delimiters) {
   var type = node.type
 
@@ -174,20 +174,17 @@ function delimiterCheck(node, delimiters) {
   return toString(node) in delimiters ? node : false
 }
 
-/* Check if there are word nodes before `position`
- * in `parent`. */
+// Check if there are word nodes before `position` in `parent`.
 function hasWordsBefore(parent, position) {
   return containsWord(parent, 0, position)
 }
 
-/* Check if there are word nodes before `position`
- * in `parent`. */
+// Check if there are word nodes before `position` in `parent`.
 function hasWordsAfter(parent, position) {
   return containsWord(parent, position + 1, parent.children.length)
 }
 
-/* Check if parent contains word-nodes between
- * `start` and `end`. */
+// Check if parent contains word-nodes between `start` and `end`.
 function containsWord(parent, start, end) {
   var siblings = parent.children
   var index = start - 1
