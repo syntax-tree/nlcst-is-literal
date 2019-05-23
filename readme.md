@@ -1,4 +1,12 @@
-# nlcst-is-literal [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
+# nlcst-is-literal
+
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Downloads][downloads-badge]][downloads]
+[![Size][size-badge]][size]
+[![Sponsors][sponsors-badge]][collective]
+[![Backers][backers-badge]][collective]
+[![Chat][chat-badge]][chat]
 
 Check if an [NLCST][] node is meant literally.  Useful if a tool wants to
 exclude these values possibly void of meaning.
@@ -91,13 +99,31 @@ repository, organisation, or community you agree to abide by its terms.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/syntax-tree/nlcst-is-literal.svg
+[build-badge]: https://img.shields.io/travis/syntax-tree/nlcst-is-literal.svg
 
-[travis]: https://travis-ci.org/syntax-tree/nlcst-is-literal
+[build]: https://travis-ci.org/syntax-tree/nlcst-is-literal
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/syntax-tree/nlcst-is-literal.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/nlcst-is-literal.svg
 
-[codecov]: https://codecov.io/github/syntax-tree/nlcst-is-literal
+[coverage]: https://codecov.io/github/syntax-tree/nlcst-is-literal
+
+[downloads-badge]: https://img.shields.io/npm/dm/nlcst-is-literal.svg
+
+[downloads]: https://www.npmjs.com/package/nlcst-is-literal
+
+[size-badge]: https://img.shields.io/bundlephobia/minzip/nlcst-is-literal.svg
+
+[size]: https://bundlephobia.com/result?p=nlcst-is-literal
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
+[collective]: https://opencollective.com/unified
+
+[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+
+[chat]: https://spectrum.chat/unified/syntax-tree
 
 [npm]: https://docs.npmjs.com/cli/install
 
