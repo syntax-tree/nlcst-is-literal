@@ -89,6 +89,14 @@ function isLiteral(parent, index) {
     throw new Error('Parent must be a node')
   }
 
+  if (index !== null && typeof index === 'object' && 'type' in index) {
+    index = parent.children.indexOf(index)
+
+    if (index === -1) {
+      throw new Error('Node must be a child of `parent`')
+    }
+  }
+
   if (isNaN(index)) {
     throw new Error('Index must be a number')
   }

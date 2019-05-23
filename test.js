@@ -28,8 +28,21 @@ test('isLiteral()', function(t) {
       isLiteral({children: []})
     },
     /Index must be a number/,
-    'should throw without index'
+    'should throw without node'
   )
+
+  t.throws(
+    function() {
+      isLiteral({children: []}, {type: 'a'})
+    },
+    /Node must be a child of `parent`/,
+    'should throw if `node` is not in `parent`'
+  )
+
+  t.doesNotThrow(function() {
+    var n = {type: 'a'}
+    isLiteral({children: [n]}, n)
+  }, 'should not throw if `node` is in `parent`')
 
   t.doesNotThrow(function() {
     process('Well? Ha! Funky', function(node, index, parent) {

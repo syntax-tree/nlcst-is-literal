@@ -75,10 +75,10 @@ quux
 
 ## API
 
-### `isLiteral(parent, index)`
+### `isLiteral(parent, index|child)`
 
-Check if the node in `parent` at `position` is enclosed
-by matching delimiters.
+Check if the `child` in `parent` is enclosed by matching delimiters.
+If `index` is given, the [child][] of `parent` at that [index][] is checked.
 
 For example, `foo` is literal in the following samples:
 
@@ -141,3 +141,7 @@ abide by its terms.
 [coc]: https://github.com/syntax-tree/.github/blob/master/code-of-conduct.md
 
 [nlcst]: https://github.com/syntax-tree/nlcst
+
+[index]: https://github.com/syntax-tree/unist#index
+
+[child]: https://github.com/syntax-tree/unist#child
