@@ -8,17 +8,17 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-Check if an [NLCST][] node is meant literally.  Useful if a tool wants to
-exclude these values possibly void of meaning.
+[**nlcst**][nlcst] utility to check if a node is meant literally.
 
-As an example, a spell-checker could exclude these literal words, thus not
-warning about “monsieur”.
+Useful if a tool wants to exclude values that are possibly void of meaning.
+For example, a spell-checker could exclude these literal words, thus not warning
+about “monsieur”.
 
-## Installation
+## Install
 
 [npm][]:
 
-```bash
+```sh
 npm install nlcst-is-literal
 ```
 
@@ -40,7 +40,7 @@ The word — quux — is meant as a literal.
 
 And our script, `example.js`, looks as follows:
 
-```javascript
+```js
 var vfile = require('to-vfile')
 var unified = require('unified')
 var english = require('retext-english')
@@ -49,6 +49,7 @@ var toString = require('nlcst-to-string')
 var literal = require('nlcst-is-literal')
 
 var file = vfile.readSync('example.txt')
+
 var tree = unified()
   .use(english)
   .parse(file)
@@ -87,11 +88,13 @@ For example, `foo` is literal in the following samples:
 
 ## Contribute
 
-See [`contributing.md` in `syntax-tree/nlcst`][contributing] for ways to get
+See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
 started.
+See [`support.md`][support] for ways to get help.
 
-This organisation has a [Code of Conduct][coc].  By interacting with this
-repository, organisation, or community you agree to abide by its terms.
+This project has a [Code of Conduct][coc].
+By interacting with this repository, organisation, or community you agree to
+abide by its terms.
 
 ## License
 
@@ -131,8 +134,10 @@ repository, organisation, or community you agree to abide by its terms.
 
 [author]: https://wooorm.com
 
+[contributing]: https://github.com/syntax-tree/.github/blob/master/contributing.md
+
+[support]: https://github.com/syntax-tree/.github/blob/master/support.md
+
+[coc]: https://github.com/syntax-tree/.github/blob/master/code-of-conduct.md
+
 [nlcst]: https://github.com/syntax-tree/nlcst
-
-[contributing]: https://github.com/syntax-tree/nlcst/blob/master/contributing.md
-
-[coc]: https://github.com/syntax-tree/nlcst/blob/master/code-of-conduct.md
