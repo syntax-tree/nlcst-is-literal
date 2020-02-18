@@ -1,11 +1,12 @@
 {
   "name": "nlcst-is-literal",
   "version": "1.2.0",
-  "description": "Check whether an NLCST node is meant literally",
+  "description": "nlcst utility to check whether a node is meant literally",
   "license": "MIT",
   "keywords": [
+    "unist",
     "nlcst",
-    "retext",
+    "nlcst-util",
     "util",
     "utility",
     "literal",
