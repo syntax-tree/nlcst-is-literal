@@ -22,11 +22,11 @@ about “monsieur”.
 npm install nlcst-is-literal
 ```
 
-## Usage
+## Use
 
 Say we have the following file, `example.txt`:
 
-```text
+```txt
 The word “foo” is meant as a literal.
 
 The word «bar» is meant as a literal.
@@ -65,7 +65,7 @@ function visitor(node, index, parent) {
 
 Now, running `node example` yields:
 
-```text
+```txt
 foo
 bar
 baz
@@ -92,8 +92,8 @@ See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
 started.
 See [`support.md`][support] for ways to get help.
 
-This project has a [Code of Conduct][coc].
-By interacting with this repository, organisation, or community you agree to
+This project has a [code of conduct][coc].
+By interacting with this repository, organization, or community you agree to
 abide by its terms.
 
 ## License
@@ -124,7 +124,7 @@ abide by its terms.
 
 [collective]: https://opencollective.com/unified
 
-[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+[chat-badge]: https://img.shields.io/badge/jchat-spectrum-7b16ff.svg
 
 [chat]: https://spectrum.chat/unified/syntax-tree
 
