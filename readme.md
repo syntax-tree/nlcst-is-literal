@@ -86,6 +86,13 @@ For example, `foo` is literal in the following samples:
 *   `Meant as a literal is - foo.`
 *   `The word “foo” is meant as a literal.`
 
+## Related
+
+*   [`nlcst-normalize`](https://github.com/syntax-tree/nlcst-normalize)
+    — Normalize a word for easier comparison
+*   [`nlcst-search`](https://github.com/syntax-tree/nlcst-search)
+    — Search for patterns
+
 ## Contribute
 
 See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
