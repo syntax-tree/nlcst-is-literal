@@ -6,9 +6,9 @@ var visit = require('unist-util-visit')
 var retext = require('retext')
 var isLiteral = require('.')
 
-test('isLiteral()', function(t) {
+test('isLiteral()', function (t) {
   t.throws(
-    function() {
+    function () {
       isLiteral()
     },
     /Parent must be a node/,
@@ -16,7 +16,7 @@ test('isLiteral()', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       isLiteral({})
     },
     /Parent must be a node/,
@@ -24,7 +24,7 @@ test('isLiteral()', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       isLiteral({children: []})
     },
     /Index must be a number/,
@@ -32,25 +32,25 @@ test('isLiteral()', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       isLiteral({children: []}, {type: 'a'})
     },
     /Node must be a child of `parent`/,
     'should throw if `node` is not in `parent`'
   )
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     var n = {type: 'a'}
     isLiteral({children: [n]}, n)
   }, 'should not throw if `node` is in `parent`')
 
-  t.doesNotThrow(function() {
-    process('Well? Ha! Funky', function(node, index, parent) {
+  t.doesNotThrow(function () {
+    process('Well? Ha! Funky', function (node, index, parent) {
       assert.strictEqual(isLiteral(parent, index), false)
     })
   }, 'should work on single word sentences')
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     ;[
       'Foo - is meant as a literal.',
       'Foo – is meant as a literal.',
@@ -61,14 +61,14 @@ test('isLiteral()', function(t) {
       'Foo—is meant as a literal.',
       'Foo: is meant as a literal.',
       'Foo; is meant as a literal.'
-    ].forEach(function(fixture) {
-      process(fixture, function(node, index, parent) {
+    ].forEach(function (fixture) {
+      process(fixture, function (node, index, parent) {
         assert.strictEqual(isLiteral(parent, index), index === 0, fixture)
       })
     })
   }, 'Initial')
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     ;[
       'Meant as a literal is - foo.',
       'Meant as a literal is – foo.',
@@ -79,8 +79,8 @@ test('isLiteral()', function(t) {
       'Meant as a literal is—foo.',
       'Meant as a literal is: foo.',
       'Meant as a literal is; foo.'
-    ].forEach(function(fixture) {
-      process(fixture, function(node, index, parent) {
+    ].forEach(function (fixture) {
+      process(fixture, function (node, index, parent) {
         assert.strictEqual(
           isLiteral(parent, index),
           index === parent.children.length - 2,
@@ -90,7 +90,7 @@ test('isLiteral()', function(t) {
     })
   }, 'Final')
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     ;[
       'The word, foo, is meant as a literal.',
       'The word -foo- is meant as a literal.',
@@ -118,8 +118,8 @@ test('isLiteral()', function(t) {
       'The word {foo} is meant as a literal.',
       'The word ⟨foo⟩ is meant as a literal.',
       'The word 「foo」 is meant as a literal.'
-    ].forEach(function(fixture, n) {
-      process(fixture, function(node, index, parent) {
+    ].forEach(function (fixture, n) {
+      process(fixture, function (node, index, parent) {
         var pos = 5
 
         // Adjacent hyphens are part of the word.

@@ -116,11 +116,11 @@ function isLiteral(parent, index) {
 // Check if the node in `parent` at `position` is enclosed by matching
 // delimiters.
 function isWrapped(parent, position, delimiters) {
-  var prev = previousDelimiter(parent, position, delimiters)
+  var previous = previousDelimiter(parent, position, delimiters)
   var next
 
-  if (prev) {
-    next = nextDelimiter(parent, position, delimiters[toString(prev)])
+  if (previous) {
+    next = nextDelimiter(parent, position, delimiters[toString(previous)])
   }
 
   return Boolean(next)
