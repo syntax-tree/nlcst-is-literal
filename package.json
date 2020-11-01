@@ -67,6 +67,8 @@
     "prettier": true,
     "esnext": false,
     "rules": {
+      "guard-for-in": "off",
+      "unicorn/prefer-includes": "off",
       "unicorn/prefer-number-properties": "off",
       "unicorn/prefer-type-error": "off"
     },

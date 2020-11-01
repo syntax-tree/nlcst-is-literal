@@ -4,83 +4,46 @@ var toString = require('nlcst-to-string')
 
 module.exports = isLiteral
 
-var single = {
-  '-': true, // Hyphen-minus
-  '–': true, // En dash
-  '—': true, // Em dash
-  ':': true, // Colon
-  ';': true // Semi-colon
-}
+var single = [
+  '-', // Hyphen-minus
+  '–', // En dash
+  '—', // Em dash
+  ':', // Colon
+  ';' // Semi-colon
+]
 
 // Pair delimiters.
 // From common sense, and WikiPedia:
 // <https://en.wikipedia.org/wiki/Quotation_mark>.
 var pairs = {
-  ',': {
-    ',': true
-  },
-  '-': {
-    '-': true
-  },
-  '–': {
-    '–': true
-  },
-  '—': {
-    '—': true
-  },
-  '"': {
-    '"': true
-  },
-  "'": {
-    "'": true
-  },
-  '‘': {
-    '’': true
-  },
-  '‚': {
-    '’': true
-  },
-  '’': {
-    '’': true,
-    '‚': true
-  },
-  '“': {
-    '”': true
-  },
-  '”': {
-    '”': true
-  },
-  '„': {
-    '”': true,
-    '“': true
-  },
-  '«': {
-    '»': true
-  },
-  '»': {
-    '«': true
-  },
-  '‹': {
-    '›': true
-  },
-  '›': {
-    '‹': true
-  },
-  '(': {
-    ')': true
-  },
-  '[': {
-    ']': true
-  },
-  '{': {
-    '}': true
-  },
-  '⟨': {
-    '⟩': true
-  },
-  '「': {
-    '」': true
-  }
+  ',': [','],
+  '-': ['-'],
+  '–': ['–'],
+  '—': ['—'],
+  '"': ['"'],
+  "'": ["'"],
+  '‘': ['’'],
+  '‚': ['’'],
+  '’': ['’', '‚'],
+  '“': ['”'],
+  '”': ['”'],
+  '„': ['”', '“'],
+  '«': ['»'],
+  '»': ['«'],
+  '‹': ['›'],
+  '›': ['‹'],
+  '(': [')'],
+  '[': [']'],
+  '{': ['}'],
+  '⟨': ['⟩'],
+  '「': ['」']
+}
+
+var open = []
+var key
+
+for (key in pairs) {
+  open.push(key)
 }
 
 // Check if the node in `parent` at `position` is enclosed by matching
@@ -102,30 +65,23 @@ function isLiteral(parent, index) {
     throw new Error('Index must be a number')
   }
 
-  if (
+  return Boolean(
     (!containsWord(parent, -1, index) &&
       siblingDelimiter(parent, index, 1, single)) ||
-    (!containsWord(parent, index, parent.children.length) &&
-      siblingDelimiter(parent, index, -1, single)) ||
-    isWrapped(parent, index, pairs)
-  ) {
-    return true
-  }
-
-  return false
+      (!containsWord(parent, index, parent.children.length) &&
+        siblingDelimiter(parent, index, -1, single)) ||
+      isWrapped(parent, index)
+  )
 }
 
 // Check if the node in `parent` at `position` is enclosed by matching
 // delimiters.
-function isWrapped(parent, position, delimiters) {
-  var previous = siblingDelimiter(parent, position, -1, delimiters)
-  var next
+function isWrapped(parent, position) {
+  var previous = siblingDelimiter(parent, position, -1, open)
 
   if (previous) {
-    next = siblingDelimiter(parent, position, 1, delimiters[toString(previous)])
+    return siblingDelimiter(parent, position, 1, pairs[toString(previous)])
   }
-
-  return next
 }
 
 // Find the previous or next delimiter before or after `position` in `parent`.
@@ -142,7 +98,7 @@ function siblingDelimiter(parent, position, step, delimiters) {
     }
 
     if (sibling.type !== 'WhiteSpaceNode') {
-      return toString(sibling) in delimiters && sibling
+      return delimiters.indexOf(toString(sibling)) > -1 && sibling
     }
 
     index += step
