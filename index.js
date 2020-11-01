@@ -13,7 +13,8 @@ var single = {
 }
 
 // Pair delimiters.
-// From common sense, and WikiPedia: <https://en.wikipedia.org/wiki/Quotation_mark>.
+// From common sense, and WikiPedia:
+// <https://en.wikipedia.org/wiki/Quotation_mark>.
 var pairs = {
   ',': {
     ',': true
@@ -102,9 +103,10 @@ function isLiteral(parent, index) {
   }
 
   if (
-    (!hasWordsBefore(parent, index) && nextDelimiter(parent, index, single)) ||
-    (!hasWordsAfter(parent, index) &&
-      previousDelimiter(parent, index, single)) ||
+    (!containsWord(parent, -1, index) &&
+      siblingDelimiter(parent, index, 1, single)) ||
+    (!containsWord(parent, index, parent.children.length) &&
+      siblingDelimiter(parent, index, -1, single)) ||
     isWrapped(parent, index, pairs)
   ) {
     return true
@@ -116,92 +118,43 @@ function isLiteral(parent, index) {
 // Check if the node in `parent` at `position` is enclosed by matching
 // delimiters.
 function isWrapped(parent, position, delimiters) {
-  var previous = previousDelimiter(parent, position, delimiters)
+  var previous = siblingDelimiter(parent, position, -1, delimiters)
   var next
 
   if (previous) {
-    next = nextDelimiter(parent, position, delimiters[toString(previous)])
+    next = siblingDelimiter(parent, position, 1, delimiters[toString(previous)])
   }
 
-  return Boolean(next)
+  return next
 }
 
-// Find the previous delimiter before `position` in `parent`.
+// Find the previous or next delimiter before or after `position` in `parent`.
 // Returns the delimiter node when found.
-function previousDelimiter(parent, position, delimiters) {
-  var siblings = parent.children
-  var index = position
-  var result
+function siblingDelimiter(parent, position, step, delimiters) {
+  var index = position + step
+  var sibling
 
-  while (index--) {
-    result = delimiterCheck(siblings[index], delimiters)
+  while (index > -1 && index < parent.children.length) {
+    sibling = parent.children[index]
 
-    if (result === null) {
-      continue
+    if (sibling.type === 'WordNode' || sibling.type === 'SourceNode') {
+      return
     }
 
-    return result
-  }
-
-  return null
-}
-
-// Find the next delimiter after `position` in `parent`.
-// Returns the delimiter node when found.
-function nextDelimiter(parent, position, delimiters) {
-  var siblings = parent.children
-  var index = position
-  var length = siblings.length
-  var result
-
-  while (++index < length) {
-    result = delimiterCheck(siblings[index], delimiters)
-
-    if (result === null) {
-      continue
+    if (sibling.type !== 'WhiteSpaceNode') {
+      return toString(sibling) in delimiters && sibling
     }
 
-    return result
+    index += step
   }
-
-  return null
 }
 
-// Check if `node` is in `delimiters`.
-function delimiterCheck(node, delimiters) {
-  var type = node.type
-
-  if (type === 'WordNode' || type === 'SourceNode') {
-    return false
-  }
-
-  if (type === 'WhiteSpaceNode') {
-    return null
-  }
-
-  return toString(node) in delimiters ? node : false
-}
-
-// Check if there are word nodes before `position` in `parent`.
-function hasWordsBefore(parent, position) {
-  return containsWord(parent, 0, position)
-}
-
-// Check if there are word nodes before `position` in `parent`.
-function hasWordsAfter(parent, position) {
-  return containsWord(parent, position + 1, parent.children.length)
-}
-
-// Check if parent contains word-nodes between `start` and `end`.
+// Check if parent contains word-nodes between `start` and `end` (both
+// excluding).
 function containsWord(parent, start, end) {
-  var siblings = parent.children
-  var index = start - 1
-
-  while (++index < end) {
-    if (siblings[index].type === 'WordNode') {
+  while (++start < end) {
+    if (parent.children[start].type === 'WordNode') {
       return true
     }
   }
-
-  return false
 }
