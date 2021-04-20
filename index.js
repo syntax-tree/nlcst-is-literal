@@ -1,3 +1,8 @@
+/**
+ * @typedef {import('unist').Node} Node
+ * @typedef {import('unist').Parent} Parent
+ */
+
 import {toString} from 'nlcst-to-string'
 
 var single = [
@@ -37,8 +42,14 @@ var pairs = {
 
 var open = Object.keys(pairs)
 
-// Check if the node in `parent` at `position` is enclosed by matching
-// delimiters.
+/**
+ * Check if the node in `parent` at `position` is enclosed by matching
+ * delimiters.
+ *
+ * @param {Parent} parent
+ * @param {number} index
+ * @returns {boolean}
+ */
 export function isLiteral(parent, index) {
   if (!(parent && parent.children)) {
     throw new Error('Parent must be a node')
@@ -65,8 +76,13 @@ export function isLiteral(parent, index) {
   )
 }
 
-// Check if the node in `parent` at `position` is enclosed by matching
-// delimiters.
+/**
+ * Check if the node in `parent` at `position` is enclosed by matching
+ * delimiters.
+ * @param {Parent} parent
+ * @param {number} position
+ * @returns {Node|void}
+ */
 function isWrapped(parent, position) {
   var previous = siblingDelimiter(parent, position, -1, open)
 
@@ -75,10 +91,19 @@ function isWrapped(parent, position) {
   }
 }
 
-// Find the previous or next delimiter before or after `position` in `parent`.
-// Returns the delimiter node when found.
+/**
+ * Find the previous or next delimiter before or after `position` in `parent`.
+ * Returns the delimiter node when found.
+ *
+ * @param {Parent} parent
+ * @param {number} position
+ * @param {number} step
+ * @param {Array.<string>} delimiters
+ * @returns {Node|void}
+ */
 function siblingDelimiter(parent, position, step, delimiters) {
   var index = position + step
+  /** @type {Node} */
   var sibling
 
   while (index > -1 && index < parent.children.length) {
@@ -96,8 +121,14 @@ function siblingDelimiter(parent, position, step, delimiters) {
   }
 }
 
-// Check if parent contains word-nodes between `start` and `end` (both
-// excluding).
+/**
+ * Check if parent contains word-nodes between `start` and `end` (both
+ * excluding).
+ * @param {Parent} parent
+ * @param {number} start
+ * @param {number} end
+ * @returns {boolean|void}
+ */
 function containsWord(parent, start, end) {
   while (++start < end) {
     if (parent.children[start].type === 'WordNode') {

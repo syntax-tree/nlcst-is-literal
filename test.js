@@ -1,5 +1,11 @@
+/**
+ * @typedef {import('unist').Node} Node
+ * @typedef {import('unist-util-visit').Visitor<Node>} Visitor
+ */
+
 import assert from 'assert'
 import test from 'tape'
+// @ts-ignore remove when typed.
 import retext from 'retext'
 import {visit} from 'unist-util-visit'
 import {isLiteral} from './index.js'
@@ -7,6 +13,7 @@ import {isLiteral} from './index.js'
 test('isLiteral()', function (t) {
   t.throws(
     function () {
+      // @ts-ignore runtime.
       isLiteral()
     },
     /Parent must be a node/,
@@ -15,6 +22,7 @@ test('isLiteral()', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime.
       isLiteral({})
     },
     /Parent must be a node/,
@@ -23,6 +31,7 @@ test('isLiteral()', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime.
       isLiteral({children: []})
     },
     /Index must be a number/,
@@ -31,6 +40,7 @@ test('isLiteral()', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime.
       isLiteral({children: []}, {type: 'a'})
     },
     /Node must be a child of `parent`/,
@@ -39,13 +49,17 @@ test('isLiteral()', function (t) {
 
   t.doesNotThrow(function () {
     var n = {type: 'a'}
+    // @ts-ignore runtime.
     isLiteral({children: [n]}, n)
   }, 'should not throw if `node` is in `parent`')
 
   t.doesNotThrow(function () {
-    process('Well? Ha! Funky', function (node, index, parent) {
-      assert.strictEqual(isLiteral(parent, index), false)
-    })
+    process(
+      'Well? Ha! Funky',
+      /** @type {Visitor} */ function (_, index, parent) {
+        assert.strictEqual(isLiteral(parent, index), false)
+      }
+    )
   }, 'should work on single word sentences')
 
   t.doesNotThrow(function () {
@@ -63,9 +77,16 @@ test('isLiteral()', function (t) {
     var index = -1
 
     while (++index < fixtures.length) {
-      process(fixtures[index], function (node, index, parent) {
-        assert.strictEqual(isLiteral(parent, index), index === 0, index)
-      })
+      process(
+        fixtures[index],
+        /** @type {Visitor} */ function (_, index, parent) {
+          assert.strictEqual(
+            isLiteral(parent, index),
+            index === 0,
+            String(index)
+          )
+        }
+      )
     }
   }, 'Initial')
 
@@ -84,13 +105,16 @@ test('isLiteral()', function (t) {
     var index = -1
 
     while (++index < fixtures.length) {
-      process(fixtures[index], function (node, index, parent) {
-        assert.strictEqual(
-          isLiteral(parent, index),
-          index === parent.children.length - 2,
-          index
-        )
-      })
+      process(
+        fixtures[index],
+        /** @type {Visitor} */ function (_, index, parent) {
+          assert.strictEqual(
+            isLiteral(parent, index),
+            index === parent.children.length - 2,
+            String(index)
+          )
+        }
+      )
     }
   }, 'Final')
 
@@ -126,29 +150,40 @@ test('isLiteral()', function (t) {
     var index = -1
 
     while (++index < fixtures.length) {
-      process(fixtures[index], function (node, place, parent) {
-        var pos = 5
+      process(
+        fixtures[index],
+        /** @type {Visitor} */ function (_, place, parent) {
+          var pos = 5
 
-        // Adjacent hyphens are part of the word.
-        if (index === 1) {
-          pos = 4
+          // Adjacent hyphens are part of the word.
+          if (index === 1) {
+            pos = 4
+          }
+
+          // Tests for extra spaces.
+          if (index === 4 || index === 5 || index === 6) {
+            pos = 6
+          }
+
+          assert.strictEqual(
+            isLiteral(parent, place),
+            place === pos,
+            String(index)
+          )
         }
-
-        // Tests for extra spaces.
-        if (index === 4 || index === 5 || index === 6) {
-          pos = 6
-        }
-
-        assert.strictEqual(isLiteral(parent, place), place === pos, index)
-      })
+      )
     }
   }, 'Internal')
 
   t.end()
 })
 
-// Shortcut to process a fixture and invoke `visitor` for each of its word
-// nodes.
+/**
+ * Shortcut to process a fixture and invoke `visitor` for each of its word
+ * nodes.
+ * @param {string} fixture
+ * @param {Visitor} visitor
+ */
 function process(fixture, visitor) {
   visit(retext().parse(fixture), 'WordNode', visitor)
 }
