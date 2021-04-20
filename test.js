@@ -51,7 +51,7 @@ test('isLiteral()', function (t) {
   }, 'should work on single word sentences')
 
   t.doesNotThrow(function () {
-    ;[
+    var fixtures = [
       'Foo - is meant as a literal.',
       'Foo – is meant as a literal.',
       'Foo — is meant as a literal.',
@@ -61,15 +61,18 @@ test('isLiteral()', function (t) {
       'Foo—is meant as a literal.',
       'Foo: is meant as a literal.',
       'Foo; is meant as a literal.'
-    ].forEach(function (fixture) {
-      process(fixture, function (node, index, parent) {
-        assert.strictEqual(isLiteral(parent, index), index === 0, fixture)
+    ]
+    var index = -1
+
+    while (++index < fixtures.length) {
+      process(fixtures[index], function (node, index, parent) {
+        assert.strictEqual(isLiteral(parent, index), index === 0, index)
       })
-    })
+    }
   }, 'Initial')
 
   t.doesNotThrow(function () {
-    ;[
+    var fixtures = [
       'Meant as a literal is - foo.',
       'Meant as a literal is – foo.',
       'Meant as a literal is — foo.',
@@ -79,19 +82,22 @@ test('isLiteral()', function (t) {
       'Meant as a literal is—foo.',
       'Meant as a literal is: foo.',
       'Meant as a literal is; foo.'
-    ].forEach(function (fixture) {
-      process(fixture, function (node, index, parent) {
+    ]
+    var index = -1
+
+    while (++index < fixtures.length) {
+      process(fixtures[index], function (node, index, parent) {
         assert.strictEqual(
           isLiteral(parent, index),
           index === parent.children.length - 2,
-          fixture
+          index
         )
       })
-    })
+    }
   }, 'Final')
 
   t.doesNotThrow(function () {
-    ;[
+    var fixtures = [
       'The word, foo, is meant as a literal.',
       'The word -foo- is meant as a literal.',
       'The word –foo– is meant as a literal.',
@@ -118,23 +124,26 @@ test('isLiteral()', function (t) {
       'The word {foo} is meant as a literal.',
       'The word ⟨foo⟩ is meant as a literal.',
       'The word 「foo」 is meant as a literal.'
-    ].forEach(function (fixture, n) {
-      process(fixture, function (node, index, parent) {
+    ]
+    var index = -1
+
+    while (++index < fixtures.length) {
+      process(fixtures[index], function (node, place, parent) {
         var pos = 5
 
         // Adjacent hyphens are part of the word.
-        if (n === 1) {
+        if (index === 1) {
           pos = 4
         }
 
         // Tests for extra spaces.
-        if (n === 4 || n === 5 || n === 6) {
+        if (index === 4 || index === 5 || index === 6) {
           pos = 6
         }
 
-        assert.strictEqual(isLiteral(parent, index), index === pos, fixture)
+        assert.strictEqual(isLiteral(parent, place), place === pos, index)
       })
-    })
+    }
   }, 'Internal')
 
   t.end()
