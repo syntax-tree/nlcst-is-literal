@@ -1,5 +1,2 @@
 coverage/
-nlcst-is-literal.js
-nlcst-is-literal.min.js
-*.json
 *.md

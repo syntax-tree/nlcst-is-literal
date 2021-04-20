@@ -1,8 +1,4 @@
-'use strict'
-
-var toString = require('nlcst-to-string')
-
-module.exports = isLiteral
+import {toString} from 'nlcst-to-string'
 
 var single = [
   '-', // Hyphen-minus
@@ -39,16 +35,11 @@ var pairs = {
   '「': ['」']
 }
 
-var open = []
-var key
-
-for (key in pairs) {
-  open.push(key)
-}
+var open = Object.keys(pairs)
 
 // Check if the node in `parent` at `position` is enclosed by matching
 // delimiters.
-function isLiteral(parent, index) {
+export function isLiteral(parent, index) {
   if (!(parent && parent.children)) {
     throw new Error('Parent must be a node')
   }
@@ -61,8 +52,8 @@ function isLiteral(parent, index) {
     }
   }
 
-  if (isNaN(index)) {
-    throw new Error('Index must be a number')
+  if (typeof index !== 'number' || Number.isNaN(index)) {
+    throw new TypeError('Index must be a number')
   }
 
   return Boolean(
@@ -98,7 +89,7 @@ function siblingDelimiter(parent, position, step, delimiters) {
     }
 
     if (sibling.type !== 'WhiteSpaceNode') {
-      return delimiters.indexOf(toString(sibling)) > -1 && sibling
+      return delimiters.includes(toString(sibling)) && sibling
     }
 
     index += step

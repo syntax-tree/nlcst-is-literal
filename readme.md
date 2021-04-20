@@ -16,6 +16,9 @@ about “monsieur”.
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -41,12 +44,12 @@ The word — quux — is meant as a literal.
 And our script, `example.js`, looks as follows:
 
 ```js
-var vfile = require('to-vfile')
-var unified = require('unified')
-var english = require('retext-english')
-var visit = require('unist-util-visit')
-var toString = require('nlcst-to-string')
-var literal = require('nlcst-is-literal')
+import vfile from 'to-vfile'
+import unified from 'unified'
+import english from 'retext-english'
+import {visit} from 'unist-util-visit'
+import {toString} from 'nlcst-to-string'
+import {isLiteral} from 'nlcst-is-literal'
 
 var file = vfile.readSync('example.txt')
 
@@ -57,7 +60,7 @@ var tree = unified()
 visit(tree, 'WordNode', visitor)
 
 function visitor(node, index, parent) {
-  if (literal(parent, index)) {
+  if (isLiteral(parent, index)) {
     console.log(toString(node))
   }
 }
@@ -74,6 +77,9 @@ quux
 ```
 
 ## API
+
+This package exports the following identifiers: `isLiteral`.
+There is no default export.
 
 ### `isLiteral(parent, index|child)`
 

@@ -1,10 +1,8 @@
-'use strict'
-
-var assert = require('assert')
-var test = require('tape')
-var visit = require('unist-util-visit')
-var retext = require('retext')
-var isLiteral = require('.')
+import assert from 'assert'
+import test from 'tape'
+import retext from 'retext'
+import {visit} from 'unist-util-visit'
+import {isLiteral} from './index.js'
 
 test('isLiteral()', function (t) {
   t.throws(
