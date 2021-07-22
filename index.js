@@ -13,9 +13,13 @@ const single = [
   ';' // Semi-colon
 ]
 
-// Pair delimiters.
-// From common sense, and WikiPedia:
-// <https://en.wikipedia.org/wiki/Quotation_mark>.
+/**
+ * Pair delimiters.
+ * From common sense, and WikiPedia:
+ * <https://en.wikipedia.org/wiki/Quotation_mark>.
+ *
+ * @type {Record<string, string[]>}
+ */
 const pairs = {
   ',': [','],
   '-': ['-'],
@@ -112,7 +116,7 @@ function siblingDelimiter(parent, position, step, delimiters) {
     }
 
     if (sibling.type !== 'WhiteSpaceNode') {
-      return delimiters.includes(toString(sibling)) && sibling
+      return delimiters.includes(toString(sibling)) ? sibling : undefined
     }
 
     index += step

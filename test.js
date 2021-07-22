@@ -5,7 +5,7 @@
 
 import assert from 'assert'
 import test from 'tape'
-// @ts-ignore remove when typed.
+// @ts-expect-error remove when typed.
 import retext from 'retext'
 import {visit} from 'unist-util-visit'
 import {isLiteral} from './index.js'
@@ -13,7 +13,7 @@ import {isLiteral} from './index.js'
 test('isLiteral()', (t) => {
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       isLiteral()
     },
     /Parent must be a node/,
@@ -22,7 +22,7 @@ test('isLiteral()', (t) => {
 
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       isLiteral({})
     },
     /Parent must be a node/,
@@ -31,7 +31,7 @@ test('isLiteral()', (t) => {
 
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       isLiteral({children: []})
     },
     /Index must be a number/,
@@ -40,7 +40,7 @@ test('isLiteral()', (t) => {
 
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       isLiteral({children: []}, {type: 'a'})
     },
     /Node must be a child of `parent`/,
@@ -49,7 +49,7 @@ test('isLiteral()', (t) => {
 
   t.doesNotThrow(() => {
     const n = {type: 'a'}
-    // @ts-ignore runtime.
+    // @ts-expect-error runtime.
     isLiteral({children: [n]}, n)
   }, 'should not throw if `node` is in `parent`')
 
@@ -57,7 +57,10 @@ test('isLiteral()', (t) => {
     process(
       'Well? Ha! Funky',
       /** @type {Visitor} */ (_, index, parent) => {
-        assert.strictEqual(isLiteral(parent, index), false)
+        assert.strictEqual(
+          parent && index !== null && isLiteral(parent, index),
+          false
+        )
       }
     )
   }, 'should work on single word sentences')
@@ -81,7 +84,7 @@ test('isLiteral()', (t) => {
         fixtures[index],
         /** @type {Visitor} */ (_, index, parent) => {
           assert.strictEqual(
-            isLiteral(parent, index),
+            parent && index !== null && isLiteral(parent, index),
             index === 0,
             String(index)
           )
@@ -109,8 +112,8 @@ test('isLiteral()', (t) => {
         fixtures[index],
         /** @type {Visitor} */ (_, index, parent) => {
           assert.strictEqual(
-            isLiteral(parent, index),
-            index === parent.children.length - 2,
+            parent && index !== null && isLiteral(parent, index),
+            parent && index === parent.children.length - 2,
             String(index)
           )
         }
@@ -166,7 +169,7 @@ test('isLiteral()', (t) => {
           }
 
           assert.strictEqual(
-            isLiteral(parent, place),
+            parent && place !== null && isLiteral(parent, place),
             place === pos,
             String(index)
           )
