@@ -44,18 +44,16 @@ The word — quux — is meant as a literal.
 And our script, `example.js`, looks as follows:
 
 ```js
-import vfile from 'to-vfile'
-import unified from 'unified'
-import english from 'retext-english'
+import {readSync} from 'to-vfile'
+import {unified} from 'unified'
+import retextEnglish from 'retext-english'
 import {visit} from 'unist-util-visit'
 import {toString} from 'nlcst-to-string'
 import {isLiteral} from 'nlcst-is-literal'
 
-var file = vfile.readSync('example.txt')
+const file = readSync('example.txt')
 
-var tree = unified()
-  .use(english)
-  .parse(file)
+const tree = unified().use(retextEnglish).parse(file)
 
 visit(tree, 'WordNode', visitor)
 

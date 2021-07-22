@@ -10,9 +10,9 @@ import retext from 'retext'
 import {visit} from 'unist-util-visit'
 import {isLiteral} from './index.js'
 
-test('isLiteral()', function (t) {
+test('isLiteral()', (t) => {
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       isLiteral()
     },
@@ -21,7 +21,7 @@ test('isLiteral()', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       isLiteral({})
     },
@@ -30,7 +30,7 @@ test('isLiteral()', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       isLiteral({children: []})
     },
@@ -39,7 +39,7 @@ test('isLiteral()', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       isLiteral({children: []}, {type: 'a'})
     },
@@ -47,23 +47,23 @@ test('isLiteral()', function (t) {
     'should throw if `node` is not in `parent`'
   )
 
-  t.doesNotThrow(function () {
-    var n = {type: 'a'}
+  t.doesNotThrow(() => {
+    const n = {type: 'a'}
     // @ts-ignore runtime.
     isLiteral({children: [n]}, n)
   }, 'should not throw if `node` is in `parent`')
 
-  t.doesNotThrow(function () {
+  t.doesNotThrow(() => {
     process(
       'Well? Ha! Funky',
-      /** @type {Visitor} */ function (_, index, parent) {
+      /** @type {Visitor} */ (_, index, parent) => {
         assert.strictEqual(isLiteral(parent, index), false)
       }
     )
   }, 'should work on single word sentences')
 
-  t.doesNotThrow(function () {
-    var fixtures = [
+  t.doesNotThrow(() => {
+    const fixtures = [
       'Foo - is meant as a literal.',
       'Foo – is meant as a literal.',
       'Foo — is meant as a literal.',
@@ -74,12 +74,12 @@ test('isLiteral()', function (t) {
       'Foo: is meant as a literal.',
       'Foo; is meant as a literal.'
     ]
-    var index = -1
+    let index = -1
 
     while (++index < fixtures.length) {
       process(
         fixtures[index],
-        /** @type {Visitor} */ function (_, index, parent) {
+        /** @type {Visitor} */ (_, index, parent) => {
           assert.strictEqual(
             isLiteral(parent, index),
             index === 0,
@@ -90,8 +90,8 @@ test('isLiteral()', function (t) {
     }
   }, 'Initial')
 
-  t.doesNotThrow(function () {
-    var fixtures = [
+  t.doesNotThrow(() => {
+    const fixtures = [
       'Meant as a literal is - foo.',
       'Meant as a literal is – foo.',
       'Meant as a literal is — foo.',
@@ -102,12 +102,12 @@ test('isLiteral()', function (t) {
       'Meant as a literal is: foo.',
       'Meant as a literal is; foo.'
     ]
-    var index = -1
+    let index = -1
 
     while (++index < fixtures.length) {
       process(
         fixtures[index],
-        /** @type {Visitor} */ function (_, index, parent) {
+        /** @type {Visitor} */ (_, index, parent) => {
           assert.strictEqual(
             isLiteral(parent, index),
             index === parent.children.length - 2,
@@ -118,8 +118,8 @@ test('isLiteral()', function (t) {
     }
   }, 'Final')
 
-  t.doesNotThrow(function () {
-    var fixtures = [
+  t.doesNotThrow(() => {
+    const fixtures = [
       'The word, foo, is meant as a literal.',
       'The word -foo- is meant as a literal.',
       'The word –foo– is meant as a literal.',
@@ -147,13 +147,13 @@ test('isLiteral()', function (t) {
       'The word ⟨foo⟩ is meant as a literal.',
       'The word 「foo」 is meant as a literal.'
     ]
-    var index = -1
+    let index = -1
 
     while (++index < fixtures.length) {
       process(
         fixtures[index],
-        /** @type {Visitor} */ function (_, place, parent) {
-          var pos = 5
+        /** @type {Visitor} */ (_, place, parent) => {
+          let pos = 5
 
           // Adjacent hyphens are part of the word.
           if (index === 1) {

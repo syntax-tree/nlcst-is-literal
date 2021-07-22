@@ -5,7 +5,7 @@
 
 import {toString} from 'nlcst-to-string'
 
-var single = [
+const single = [
   '-', // Hyphen-minus
   '–', // En dash
   '—', // Em dash
@@ -16,7 +16,7 @@ var single = [
 // Pair delimiters.
 // From common sense, and WikiPedia:
 // <https://en.wikipedia.org/wiki/Quotation_mark>.
-var pairs = {
+const pairs = {
   ',': [','],
   '-': ['-'],
   '–': ['–'],
@@ -40,7 +40,7 @@ var pairs = {
   '「': ['」']
 }
 
-var open = Object.keys(pairs)
+const open = Object.keys(pairs)
 
 /**
  * Check if the node in `parent` at `position` is enclosed by matching
@@ -84,7 +84,7 @@ export function isLiteral(parent, index) {
  * @returns {Node|void}
  */
 function isWrapped(parent, position) {
-  var previous = siblingDelimiter(parent, position, -1, open)
+  const previous = siblingDelimiter(parent, position, -1, open)
 
   if (previous) {
     return siblingDelimiter(parent, position, 1, pairs[toString(previous)])
@@ -102,12 +102,10 @@ function isWrapped(parent, position) {
  * @returns {Node|void}
  */
 function siblingDelimiter(parent, position, step, delimiters) {
-  var index = position + step
-  /** @type {Node} */
-  var sibling
+  let index = position + step
 
   while (index > -1 && index < parent.children.length) {
-    sibling = parent.children[index]
+    const sibling = parent.children[index]
 
     if (sibling.type === 'WordNode' || sibling.type === 'SourceNode') {
       return
