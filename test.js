@@ -5,8 +5,7 @@
 
 import assert from 'assert'
 import test from 'tape'
-// @ts-expect-error remove when typed.
-import retext from 'retext'
+import {retext} from 'retext'
 import {visit} from 'unist-util-visit'
 import {isLiteral} from './index.js'
 
