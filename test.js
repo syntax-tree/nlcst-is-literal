@@ -3,7 +3,7 @@
  * @typedef {import('unist-util-visit').Visitor<Node>} Visitor
  */
 
-import assert from 'assert'
+import assert from 'node:assert'
 import test from 'tape'
 import {retext} from 'retext'
 import {visit} from 'unist-util-visit'
