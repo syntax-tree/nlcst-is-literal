@@ -53,15 +53,12 @@ test('isLiteral()', (t) => {
   }, 'should not throw if `node` is in `parent`')
 
   t.doesNotThrow(() => {
-    process(
-      'Well? Ha! Funky',
-      /** @type {Visitor} */ (_, index, parent) => {
-        assert.strictEqual(
-          parent && index !== null && isLiteral(parent, index),
-          false
-        )
-      }
-    )
+    process('Well? Ha! Funky', (_, index, parent) => {
+      assert.strictEqual(
+        parent && index !== null && isLiteral(parent, index),
+        false
+      )
+    })
   }, 'should work on single word sentences')
 
   t.doesNotThrow(() => {
@@ -79,16 +76,13 @@ test('isLiteral()', (t) => {
     let index = -1
 
     while (++index < fixtures.length) {
-      process(
-        fixtures[index],
-        /** @type {Visitor} */ (_, index, parent) => {
-          assert.strictEqual(
-            parent && index !== null && isLiteral(parent, index),
-            index === 0,
-            String(index)
-          )
-        }
-      )
+      process(fixtures[index], (_, index, parent) => {
+        assert.strictEqual(
+          parent && index !== null && isLiteral(parent, index),
+          index === 0,
+          String(index)
+        )
+      })
     }
   }, 'Initial')
 
@@ -107,16 +101,13 @@ test('isLiteral()', (t) => {
     let index = -1
 
     while (++index < fixtures.length) {
-      process(
-        fixtures[index],
-        /** @type {Visitor} */ (_, index, parent) => {
-          assert.strictEqual(
-            parent && index !== null && isLiteral(parent, index),
-            parent && index === parent.children.length - 2,
-            String(index)
-          )
-        }
-      )
+      process(fixtures[index], (_, index, parent) => {
+        assert.strictEqual(
+          parent && index !== null && isLiteral(parent, index),
+          parent && index === parent.children.length - 2,
+          String(index)
+        )
+      })
     }
   }, 'Final')
 
@@ -152,28 +143,25 @@ test('isLiteral()', (t) => {
     let index = -1
 
     while (++index < fixtures.length) {
-      process(
-        fixtures[index],
-        /** @type {Visitor} */ (_, place, parent) => {
-          let pos = 5
+      process(fixtures[index], (_, place, parent) => {
+        let pos = 5
 
-          // Adjacent hyphens are part of the word.
-          if (index === 1) {
-            pos = 4
-          }
-
-          // Tests for extra spaces.
-          if (index === 4 || index === 5 || index === 6) {
-            pos = 6
-          }
-
-          assert.strictEqual(
-            parent && place !== null && isLiteral(parent, place),
-            place === pos,
-            String(index)
-          )
+        // Adjacent hyphens are part of the word.
+        if (index === 1) {
+          pos = 4
         }
-      )
+
+        // Tests for extra spaces.
+        if (index === 4 || index === 5 || index === 6) {
+          pos = 6
+        }
+
+        assert.strictEqual(
+          parent && place !== null && isLiteral(parent, place),
+          place === pos,
+          String(index)
+        )
+      })
     }
   }, 'Internal')
 
