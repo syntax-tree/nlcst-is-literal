@@ -1,6 +1,11 @@
 /**
- * @typedef {import('unist').Node} Node
- * @typedef {import('unist-util-visit').Visitor<Node>} Visitor
+ * @typedef {import('unist').Parent} UnistParent
+ * @typedef {import('nlcst').Root} Root
+ * @typedef {import('nlcst').Word} Word
+ * @typedef {import('nlcst').Content} Content
+ * @typedef {Root|Content} Node
+ * @typedef {Extract<Node, UnistParent>} Parent
+ * @typedef {import('unist-util-visit').Visitor<Word>} Visitor
  */
 
 import assert from 'node:assert'
@@ -53,7 +58,8 @@ test('isLiteral()', (t) => {
   }, 'should not throw if `node` is in `parent`')
 
   t.doesNotThrow(() => {
-    process('Well? Ha! Funky', (_, index, parent) => {
+    process('Well? Ha! Funky', (_, index, parent_) => {
+      const parent = /** @type {Parent} */ (parent_)
       assert.strictEqual(
         parent && index !== null && isLiteral(parent, index),
         false
@@ -76,7 +82,8 @@ test('isLiteral()', (t) => {
     let index = -1
 
     while (++index < fixtures.length) {
-      process(fixtures[index], (_, index, parent) => {
+      process(fixtures[index], (_, index, parent_) => {
+        const parent = /** @type {Parent} */ (parent_)
         assert.strictEqual(
           parent && index !== null && isLiteral(parent, index),
           index === 0,
@@ -101,7 +108,8 @@ test('isLiteral()', (t) => {
     let index = -1
 
     while (++index < fixtures.length) {
-      process(fixtures[index], (_, index, parent) => {
+      process(fixtures[index], (_, index, parent_) => {
+        const parent = /** @type {Parent} */ (parent_)
         assert.strictEqual(
           parent && index !== null && isLiteral(parent, index),
           parent && index === parent.children.length - 2,
@@ -143,7 +151,8 @@ test('isLiteral()', (t) => {
     let index = -1
 
     while (++index < fixtures.length) {
-      process(fixtures[index], (_, place, parent) => {
+      process(fixtures[index], (_, place, parent_) => {
+        const parent = /** @type {Parent} */ (parent_)
         let pos = 5
 
         // Adjacent hyphens are part of the word.

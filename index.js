@@ -1,6 +1,9 @@
 /**
- * @typedef {import('unist').Node} Node
- * @typedef {import('unist').Parent} Parent
+ * @typedef {import('unist').Parent} UnistParent
+ * @typedef {import('nlcst').Root} Root
+ * @typedef {import('nlcst').Content} Content
+ * @typedef {Root|Content} Node
+ * @typedef {Extract<Node, UnistParent>} Parent
  */
 
 import {toString} from 'nlcst-to-string'
