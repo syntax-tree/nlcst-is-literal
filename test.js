@@ -5,7 +5,7 @@
  * @typedef {import('nlcst').Content} Content
  * @typedef {Root|Content} Node
  * @typedef {Extract<Node, UnistParent>} Parent
- * @typedef {import('unist-util-visit').Visitor<Word>} Visitor
+ * @typedef {import('unist-util-visit/complex-types').Visitor<Word>} Visitor
  */
 
 import assert from 'node:assert'
