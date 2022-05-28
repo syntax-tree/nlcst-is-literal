@@ -21,7 +21,7 @@ const single = [
  * From common sense, and WikiPedia:
  * <https://en.wikipedia.org/wiki/Quotation_mark>.
  *
- * @type {Record<string, string[]>}
+ * @type {Record<string, Array<string>>}
  */
 const pairs = {
   ',': [','],
@@ -105,7 +105,7 @@ function isWrapped(parent, position) {
  * @param {Parent} parent
  * @param {number} position
  * @param {number} step
- * @param {Array.<string>} delimiters
+ * @param {Array<string>} delimiters
  * @returns {Node|void}
  */
 function siblingDelimiter(parent, position, step, delimiters) {
