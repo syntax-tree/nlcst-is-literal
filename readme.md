@@ -8,26 +8,60 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**nlcst**][nlcst] utility to check if a node is meant literally.
+[nlcst][] utility to check if a node is meant literally.
 
-Useful if a tool wants to exclude values that are possibly void of meaning.
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`isLiteral(parent, index|child)`](#isliteralparent-indexchild)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This utility can check if a node is meant literally.
+
+## When should I use this?
+
+This package is a tiny utility that helps when dealing with words.
+It’s useful if a tool wants to exclude values that are possibly void of
+meaning.
 For example, a spell-checker could exclude these literal words, thus not warning
 about “monsieur”.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, 16.0+, 18.0+), install with [npm][]:
 
 ```sh
 npm install nlcst-is-literal
 ```
 
+In Deno with [`esm.sh`][esmsh]:
+
+```js
+import {isLiteral} from "https://esm.sh/nlcst-is-literal@2"
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import {isLiteral} from "https://esm.sh/nlcst-is-literal@2?bundle"
+</script>
+```
+
 ## Use
 
-Say we have the following file, `example.txt`:
+Say our document `example.txt` contains:
 
 ```txt
 The word “foo” is meant as a literal.
@@ -41,7 +75,7 @@ The word, qux, is meant as a literal.
 The word — quux — is meant as a literal.
 ```
 
-And our script, `example.js`, looks as follows:
+…and our module `example.js` looks as follows:
 
 ```js
 import {readSync} from 'to-vfile'
@@ -64,7 +98,7 @@ function visitor(node, index, parent) {
 }
 ```
 
-Now, running `node example` yields:
+…now running `node example.js` yields:
 
 ```txt
 foo
@@ -76,13 +110,13 @@ quux
 
 ## API
 
-This package exports the following identifiers: `isLiteral`.
+This package exports the identifier `isLiteral`.
 There is no default export.
 
 ### `isLiteral(parent, index|child)`
 
 Check if the `child` in `parent` is enclosed by matching delimiters.
-If `index` is given, the [child][] of `parent` at that [index][] is checked.
+If an `index` is given, the [child][] of `parent` at that [index][] is checked.
 
 For example, `foo` is literal in the following samples:
 
@@ -90,17 +124,29 @@ For example, `foo` is literal in the following samples:
 *   `Meant as a literal is - foo.`
 *   `The word “foo” is meant as a literal.`
 
+## Types
+
+This package is fully typed with [TypeScript][].
+It exports no additional types.
+
+## Compatibility
+
+Projects maintained by the unified collective are compatible with all maintained
+versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
+Our projects sometimes work with older versions, but this is not guaranteed.
+
 ## Related
 
 *   [`nlcst-normalize`](https://github.com/syntax-tree/nlcst-normalize)
-    — Normalize a word for easier comparison
+    — normalize a word for easier comparison
 *   [`nlcst-search`](https://github.com/syntax-tree/nlcst-search)
-    — Search for patterns
+    — search for patterns
 
 ## Contribute
 
-See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
-started.
+See [`contributing.md`][contributing] in [`syntax-tree/.github`][health] for
+ways to get started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
@@ -141,15 +187,23 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
+[typescript]: https://www.typescriptlang.org
+
 [license]: license
 
 [author]: https://wooorm.com
 
-[contributing]: https://github.com/syntax-tree/.github/blob/HEAD/contributing.md
+[health]: https://github.com/syntax-tree/.github
 
-[support]: https://github.com/syntax-tree/.github/blob/HEAD/support.md
+[contributing]: https://github.com/syntax-tree/.github/blob/main/contributing.md
 
-[coc]: https://github.com/syntax-tree/.github/blob/HEAD/code-of-conduct.md
+[support]: https://github.com/syntax-tree/.github/blob/main/support.md
+
+[coc]: https://github.com/syntax-tree/.github/blob/main/code-of-conduct.md
 
 [nlcst]: https://github.com/syntax-tree/nlcst
 
