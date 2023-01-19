@@ -8,14 +8,14 @@
  * @typedef {import('unist-util-visit/complex-types.js').Visitor<Word>} Visitor
  */
 
-import assert from 'node:assert'
-import test from 'tape'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 import {retext} from 'retext'
 import {visit} from 'unist-util-visit'
 import {isLiteral} from './index.js'
 
-test('isLiteral()', (t) => {
-  t.throws(
+test('isLiteral()', () => {
+  assert.throws(
     () => {
       // @ts-expect-error runtime.
       isLiteral()
@@ -24,7 +24,7 @@ test('isLiteral()', (t) => {
     'should throw without arguments'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       // @ts-expect-error runtime.
       isLiteral({})
@@ -33,7 +33,7 @@ test('isLiteral()', (t) => {
     'should throw without parent'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       // @ts-expect-error runtime.
       isLiteral({children: []})
@@ -42,7 +42,7 @@ test('isLiteral()', (t) => {
     'should throw without node'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       // @ts-expect-error runtime.
       isLiteral({children: []}, {type: 'a'})
@@ -51,13 +51,13 @@ test('isLiteral()', (t) => {
     'should throw if `node` is not in `parent`'
   )
 
-  t.doesNotThrow(() => {
+  assert.doesNotThrow(() => {
     const n = {type: 'a'}
     // @ts-expect-error runtime.
     isLiteral({children: [n]}, n)
   }, 'should not throw if `node` is in `parent`')
 
-  t.doesNotThrow(() => {
+  assert.doesNotThrow(() => {
     process('Well? Ha! Funky', (_, index, parent_) => {
       const parent = /** @type {Parent} */ (parent_)
       assert.strictEqual(
@@ -67,7 +67,7 @@ test('isLiteral()', (t) => {
     })
   }, 'should work on single word sentences')
 
-  t.doesNotThrow(() => {
+  assert.doesNotThrow(() => {
     const fixtures = [
       'Foo - is meant as a literal.',
       'Foo – is meant as a literal.',
@@ -93,7 +93,7 @@ test('isLiteral()', (t) => {
     }
   }, 'Initial')
 
-  t.doesNotThrow(() => {
+  assert.doesNotThrow(() => {
     const fixtures = [
       'Meant as a literal is - foo.',
       'Meant as a literal is – foo.',
@@ -119,7 +119,7 @@ test('isLiteral()', (t) => {
     }
   }, 'Final')
 
-  t.doesNotThrow(() => {
+  assert.doesNotThrow(() => {
     const fixtures = [
       'The word, foo, is meant as a literal.',
       'The word -foo- is meant as a literal.',
@@ -173,8 +173,6 @@ test('isLiteral()', (t) => {
       })
     }
   }, 'Internal')
-
-  t.end()
 })
 
 /**
