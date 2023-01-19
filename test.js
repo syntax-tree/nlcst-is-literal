@@ -13,8 +13,15 @@ import test from 'node:test'
 import {ParseEnglish} from 'parse-english'
 import {visit} from 'unist-util-visit'
 import {isLiteral} from './index.js'
+import * as mod from './index.js'
 
 test('isLiteral()', () => {
+  assert.deepEqual(
+    Object.keys(mod).sort(),
+    ['isLiteral'],
+    'should expose the public api'
+  )
+
   assert.throws(
     () => {
       // @ts-expect-error runtime.
