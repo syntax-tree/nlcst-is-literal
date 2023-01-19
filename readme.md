@@ -39,7 +39,7 @@ about “monsieur”.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, 16.0+, 18.0+), install with [npm][]:
+In Node.js (version 14.14+ and 16.0+), install with [npm][]:
 
 ```sh
 npm install nlcst-is-literal
@@ -48,14 +48,14 @@ npm install nlcst-is-literal
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {isLiteral} from "https://esm.sh/nlcst-is-literal@2"
+import {isLiteral} from 'https://esm.sh/nlcst-is-literal@2'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {isLiteral} from "https://esm.sh/nlcst-is-literal@2?bundle"
+  import {isLiteral} from 'https://esm.sh/nlcst-is-literal@2?bundle'
 </script>
 ```
 
@@ -78,24 +78,20 @@ The word — quux — is meant as a literal.
 …and our module `example.js` looks as follows:
 
 ```js
-import {readSync} from 'to-vfile'
-import {unified} from 'unified'
-import retextEnglish from 'retext-english'
+import {read} from 'to-vfile'
+import {ParseEnglish} from 'parse-english'
 import {visit} from 'unist-util-visit'
 import {toString} from 'nlcst-to-string'
 import {isLiteral} from 'nlcst-is-literal'
 
-const file = readSync('example.txt')
+const file = await read('example.txt')
+const tree = new ParseEnglish().parse(String(file))
 
-const tree = unified().use(retextEnglish).parse(file)
-
-visit(tree, 'WordNode', visitor)
-
-function visitor(node, index, parent) {
+visit(tree, 'WordNode', function (node, index, parent) {
   if (isLiteral(parent, index)) {
     console.log(toString(node))
   }
-}
+})
 ```
 
 …now running `node example.js` yields:
@@ -110,19 +106,31 @@ quux
 
 ## API
 
-This package exports the identifier `isLiteral`.
+This package exports the identifier [`isLiteral`][isliteral].
 There is no default export.
 
 ### `isLiteral(parent, index|child)`
 
-Check if the `child` in `parent` is enclosed by matching delimiters.
-If an `index` is given, the [child][] of `parent` at that [index][] is checked.
+Check if the child in `parent` at `index` is enclosed by matching delimiters.
 
 For example, `foo` is literal in the following samples:
 
 *   `Foo - is meant as a literal.`
 *   `Meant as a literal is - foo.`
 *   `The word “foo” is meant as a literal.`
+
+###### Parameters
+
+*   `parent` ([`Node`][node])
+    — parent node
+*   `index` (`number`)
+    — index of child in parent
+*   `child` ([`Node`][node])
+    — child node of parent
+
+###### Returns
+
+Whether the child is a literal (`boolean`).
 
 ## Types
 
@@ -133,7 +141,7 @@ It exports no additional types.
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
+As of now, that is Node.js 14.14+ and 16.0+.
 Our projects sometimes work with older versions, but this is not guaranteed.
 
 ## Related
@@ -207,6 +215,6 @@ abide by its terms.
 
 [nlcst]: https://github.com/syntax-tree/nlcst
 
-[index]: https://github.com/syntax-tree/unist#index
+[node]: https://github.com/syntax-tree/nlcst#nodes
 
-[child]: https://github.com/syntax-tree/unist#child
+[isliteral]: #isliteralparent-indexchild
