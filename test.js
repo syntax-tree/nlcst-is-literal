@@ -10,7 +10,7 @@
 
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {retext} from 'retext'
+import {ParseEnglish} from 'parse-english'
 import {visit} from 'unist-util-visit'
 import {isLiteral} from './index.js'
 
@@ -182,5 +182,6 @@ test('isLiteral()', () => {
  * @param {Visitor} visitor
  */
 function process(fixture, visitor) {
-  visit(retext().parse(fixture), 'WordNode', visitor)
+  const tree = new ParseEnglish().parse(fixture)
+  visit(tree, 'WordNode', visitor)
 }
