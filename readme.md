@@ -48,14 +48,14 @@ npm install nlcst-is-literal
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {isLiteral} from 'https://esm.sh/nlcst-is-literal@2'
+import {isLiteral} from 'https://esm.sh/nlcst-is-literal@3'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {isLiteral} from 'https://esm.sh/nlcst-is-literal@2?bundle'
+  import {isLiteral} from 'https://esm.sh/nlcst-is-literal@3?bundle'
 </script>
 ```
 

@@ -1,6 +1,6 @@
 {
   "name": "nlcst-is-literal",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "nlcst utility to check whether a node is meant literally",
   "license": "MIT",
   "keywords": [
