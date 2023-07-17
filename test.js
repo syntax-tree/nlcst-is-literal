@@ -5,13 +5,13 @@
 
 import assert from 'node:assert/strict'
 import test from 'node:test'
+import {isLiteral} from 'nlcst-is-literal'
 import {ParseEnglish} from 'parse-english'
 import {visit} from 'unist-util-visit'
-import {isLiteral} from './index.js'
 
 test('isLiteral', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
+    assert.deepEqual(Object.keys(await import('nlcst-is-literal')).sort(), [
       'isLiteral'
     ])
   })
