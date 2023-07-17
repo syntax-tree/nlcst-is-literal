@@ -1,11 +1,6 @@
 /**
- * @typedef {import('unist').Parent} UnistParent
  * @typedef {import('nlcst').Root} Root
- * @typedef {import('nlcst').Word} Word
- * @typedef {import('nlcst').Content} Content
- * @typedef {Root|Content} Node
- * @typedef {Extract<Node, UnistParent>} Parent
- * @typedef {import('unist-util-visit/complex-types.js').Visitor<Word>} Visitor
+ * @typedef {import('unist-util-visit').BuildVisitor<Root, 'WordNode'>} Visitor
  */
 
 import assert from 'node:assert/strict'
@@ -65,10 +60,9 @@ test('isLiteral()', () => {
   }, 'should not throw if `node` is in `parent`')
 
   assert.doesNotThrow(() => {
-    process('Well? Ha! Funky', (_, index, parent_) => {
-      const parent = /** @type {Parent} */ (parent_)
+    process('Well? Ha! Funky', (_, index, parent) => {
       assert.strictEqual(
-        parent && index !== null && isLiteral(parent, index),
+        parent && index !== undefined && isLiteral(parent, index),
         false
       )
     })
@@ -89,10 +83,9 @@ test('isLiteral()', () => {
     let index = -1
 
     while (++index < fixtures.length) {
-      process(fixtures[index], (_, index, parent_) => {
-        const parent = /** @type {Parent} */ (parent_)
+      process(fixtures[index], (_, index, parent) => {
         assert.strictEqual(
-          parent && index !== null && isLiteral(parent, index),
+          parent && index !== undefined && isLiteral(parent, index),
           index === 0,
           String(index)
         )
@@ -115,10 +108,9 @@ test('isLiteral()', () => {
     let index = -1
 
     while (++index < fixtures.length) {
-      process(fixtures[index], (_, index, parent_) => {
-        const parent = /** @type {Parent} */ (parent_)
+      process(fixtures[index], (_, index, parent) => {
         assert.strictEqual(
-          parent && index !== null && isLiteral(parent, index),
+          parent && index !== undefined && isLiteral(parent, index),
           parent && index === parent.children.length - 2,
           String(index)
         )
@@ -158,8 +150,7 @@ test('isLiteral()', () => {
     let index = -1
 
     while (++index < fixtures.length) {
-      process(fixtures[index], (_, place, parent_) => {
-        const parent = /** @type {Parent} */ (parent_)
+      process(fixtures[index], (_, place, parent) => {
         let pos = 5
 
         // Adjacent hyphens are part of the word.
@@ -173,7 +164,7 @@ test('isLiteral()', () => {
         }
 
         assert.strictEqual(
-          parent && place !== null && isLiteral(parent, place),
+          parent && place !== undefined && isLiteral(parent, place),
           place === pos,
           String(index)
         )
