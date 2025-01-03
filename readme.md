@@ -12,17 +12,17 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`isLiteral(parent, index|child)`](#isliteralparent-indexchild)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`isLiteral(parent, index|child)`](#isliteralparent-indexchild)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Related](#related)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -115,18 +115,18 @@ Check if the child in `parent` at `index` is enclosed by matching delimiters.
 
 For example, `foo` is literal in the following samples:
 
-*   `Foo - is meant as a literal.`
-*   `Meant as a literal is - foo.`
-*   `The word “foo” is meant as a literal.`
+* `Foo - is meant as a literal.`
+* `Meant as a literal is - foo.`
+* `The word “foo” is meant as a literal.`
 
 ###### Parameters
 
-*   `parent` ([`Node`][node])
-    — parent node
-*   `index` (`number`)
-    — index of child in parent
-*   `child` ([`Node`][node])
-    — child node of parent
+* `parent` ([`Node`][node])
+  — parent node
+* `index` (`number`)
+  — index of child in parent
+* `child` ([`Node`][node])
+  — child node of parent
 
 ###### Returns
 
@@ -149,10 +149,10 @@ compatible with Node.js 16.
 
 ## Related
 
-*   [`nlcst-normalize`](https://github.com/syntax-tree/nlcst-normalize)
-    — normalize a word for easier comparison
-*   [`nlcst-search`](https://github.com/syntax-tree/nlcst-search)
-    — search for patterns
+* [`nlcst-normalize`](https://github.com/syntax-tree/nlcst-normalize)
+  — normalize a word for easier comparison
+* [`nlcst-search`](https://github.com/syntax-tree/nlcst-search)
+  — search for patterns
 
 ## Contribute
 
